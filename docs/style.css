@@ -1,4 +1,4 @@
-html    {background-color: rgba(0, 0, 0, 0.95);}
+html {background-color: rgb(10,10,10);}
 
 .chart1 {
     width: 100vw;
@@ -12,10 +12,8 @@ html    {background-color: rgba(0, 0, 0, 0.95);}
     justify-content: center;
 }
 .flexitem {
-    width: 100vw;
-    min-width: 45vw;
-    max-width: 95vw;
-    padding: 5px;
+    width: calc(50% - 10px); /* 10px is the margin between the two pie charts */
+    margin: 5px;
 }
 
 summary {
@@ -42,6 +40,7 @@ summary {
 
 /* If its a mobile, then the pie charts are stacked on top of each other, and the font size of "Raw Data" is made a bit smaller */
 @media only screen and (max-width: 768px) {
-    .flexbox    {flex-wrap: wrap;}
+    .flexbox    {flex-direction: column;}
+    .flexitem   {width: 100%;}
     summary     {font-size: 1.3em;}
 }
