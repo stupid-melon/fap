@@ -319,7 +319,7 @@ def modes_pie_chart(extractor:Extractor):
     data  = {key:data[key] for key in sorted(data.keys(), key=lambda x:data[x], reverse=True)}
     total = sum(data.values())
     for key in data.keys():
-        chart.add(key, data[key], formatter=lambda x: f'{x} ({round(x/total*100)}%)')
+        chart.add(key, data[key], formatter=lambda x: f'{x} ({ max( round(x/total*100) , 1 )}%)')
 
     # Exporting chart
     chart.render_to_file(f'docs/data/modes_pie_chart.svg')
@@ -337,7 +337,7 @@ def timings_pie_chart(extractor:Extractor):
     
     # Feeding data into chart
     for key in data.keys():
-        chart.add(key, data[key], formatter=lambda x: f'{x} ({round(x/total*100)}%)')
+        chart.add(key, data[key], formatter=lambda x: f'{x} ({ max( round(x/total*100) , 1 )}%)')
 
     # Exporting chart
     chart.render_to_file(f'docs/data/timings_pie_chart.svg')
