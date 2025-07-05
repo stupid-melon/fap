@@ -19,6 +19,7 @@ MONTHS = {
 
 MODES = {
     None: 'Imagination',
+    'N':  'Imagination',
     'P':  'Porn',
     'H':  'Hentai',
     'M':  'Manga',

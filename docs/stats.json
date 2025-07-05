@@ -1,0 +1,73 @@
+{
+    "totalFaps": 1785,
+    "avgPerDay": 1.17,
+    "activeDays": 1219,
+    "nDays": 1522,
+    "timeDiff": {
+        "years": 4,
+        "months": 2,
+        "days": 0
+    },
+    "mostDay": {
+        "days": [
+            "22-03-2025"
+        ],
+        "maxFaps": 6,
+        "modes": {
+            "22-03-2025": {
+                "Imagination": 5,
+                "Porn": 1
+            }
+        }
+    },
+    "leastTimeDiff": {
+        "pairs": [
+            {
+                "start": "14-08-2022 19:30",
+                "end": "14-08-2022 20:00"
+            }
+        ],
+        "bestDiff": {
+            "months": 0,
+            "days": 0,
+            "hours": 0,
+            "minutes": 30
+        }
+    },
+    "mostTimeDiff": {
+        "pairs": [
+            {
+                "start": "13-01-2022 03:00",
+                "end": "22-01-2022 01:30"
+            }
+        ],
+        "bestDiff": {
+            "months": 0,
+            "days": 8,
+            "hours": 22,
+            "minutes": 30
+        }
+    },
+    "mostTime": {
+        "time": "1430",
+        "count": 33
+    },
+    "longestFapStreak": {
+        "pairs": [
+            {
+                "start": "07-02-2025",
+                "end": "20-03-2025"
+            }
+        ],
+        "maxStreak": 42
+    },
+    "longestNofapStreak": {
+        "pairs": [
+            {
+                "start": "14-01-2022",
+                "end": "21-01-2022"
+            }
+        ],
+        "maxStreak": 8
+    }
+}

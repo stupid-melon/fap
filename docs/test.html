@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>CalHeatmap with JSON Data</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/cal-heatmap/dist/cal-heatmap.css">
+    <link href="style.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+
+    <script src="https://unpkg.com/cal-heatmap/dist/cal-heatmap.min.js"></script>
+    <script src="https://unpkg.com/cal-heatmap/dist/plugins/Legend.min.js"></script>
+    <script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
+    
+    <script src="cal-plot.js" defer></script>
+</head>
+
+<body>
+    <div class="controls">
+        <label for="colorScheme">Color Scheme:</label>
+        <select id="colorScheme">
+            <option value="YlOrRd" selected>Yellow-Orange-Red</option>
+            <option value="YlGnBu">Yellow-Green-Blue</option>
+            <option value="PuBu">Purple-Blue</option>
+            <option value="BuPu">Blue-Purple</option>
+            <option value="OrRd">Orange-Red</option>
+            <option value="RdPu">Red-Purple</option>
+            <option value="BuGn">Blue-Green</option>
+            <option value="GnBu">Green-Blue</option>
+            <option value="PuBuGn">Purple-Blue-Green</option>
+            <option value="PuRd">Purple-Red</option>
+            <option value="YlGn">Yellow-Green</option>
+            <option value="YlOrBr">Yellow-Orange-Brown</option>
+        </select>
+    </div>
+    <div id="ex-wind"></div>
+    <!-- <div>
+        <button class="button" id="prev">← Previous</button>
+        <button class="button" id="next">Next →</button>
+        <div id="ex-wind-legend" style="float: right;"></div>
+    </div> -->
+    <div id="cal-plots"></div>
+</body>
+
+</html>
