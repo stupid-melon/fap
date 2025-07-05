@@ -1,6 +1,7 @@
 const checkbox = document.querySelector('.theme-switch__checkbox');
 checkbox.addEventListener('change', function() {switchTheme(this);});
-switchTheme();
+// Switch theme onload
+document.addEventListener('DOMContentLoaded', function() {switchTheme(checkbox);});
 
 
 
