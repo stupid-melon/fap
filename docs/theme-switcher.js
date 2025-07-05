@@ -1,18 +1,20 @@
 const checkbox = document.querySelector('.theme-switch__checkbox');
 checkbox.addEventListener('change', function() {switchTheme(this);});
 // Switch theme onload
-document.addEventListener('DOMContentLoaded', function() {switchTheme(checkbox);});
+document.addEventListener('DOMContentLoaded', function() {initialiseSetTheme();});
 
 
 
-// If its the first time the user visits the site
-if (localStorage.getItem('theme') === null) {
-    checkbox.checked = true;
-    localStorage.setItem('theme', 'dark');
-    console.log('First visit detected, setting default theme to dark');
-}
-else {
-    checkbox.checked = localStorage.getItem('theme') === 'dark';
+function initialiseSetTheme() {
+    // If its the first time the user visits the site
+    if (localStorage.getItem('theme') === null) {
+        checkbox.checked = true;
+        localStorage.setItem('theme', 'dark');
+        console.log('First visit detected, setting default theme to dark');
+    }
+    else {checkbox.checked = localStorage.getItem('theme') === 'dark';}
+
+    switchTheme();
 }
 
 

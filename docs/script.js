@@ -94,10 +94,32 @@ if (introInfo) {
     });
 }
 
+
+
 // Banner management
 function dismissBanner(bannerId) {
-    document.getElementById(bannerId).classList.add('dismissed');
+    document.getElementById(bannerId).classList.add('hidden');
+    localStorage.setItem(`banner-${bannerId}-dismissed`, 'true');
 }
+
+
+// Check for previously dismissed banners on page load
+function checkDismissedBanners() {
+    const banners = ['mobile-warning', 'hover-info'];
+    banners.forEach(bannerId => {
+        const isDismissed = localStorage.getItem(`banner-${bannerId}-dismissed`) === 'true';
+        console.log(`Banner ${bannerId} dismissed: ${isDismissed}`);
+        if (!isDismissed) {document.getElementById(bannerId).classList.remove('hidden');}
+    });
+}
+
+
+
+
+// Initialize dismissed banners when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    checkDismissedBanners();
+});
 
 
 
