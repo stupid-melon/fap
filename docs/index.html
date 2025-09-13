@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-theme">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="darkreader-lock">
+    <link href="style.css" rel="stylesheet">
+    <link href="theme-switcher.css" rel="stylesheet">
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/cal-heatmap/dist/cal-heatmap.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/customParseFormat.js"></script>
+    <script>dayjs.extend(window.dayjs_plugin_customParseFormat);</script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+
+    <script src="https://unpkg.com/cal-heatmap/dist/cal-heatmap.min.js"></script>
+    <script src="https://unpkg.com/cal-heatmap/dist/plugins/Legend.min.js"></script>
+    <script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
+    
+    <script src="cal-plot.js"       defer></script>
+    <script src="script.js"         defer></script>
+    <script src="theme-switcher.js" defer></script>
+
+</head>
+
+
+<body>
+    <!-- Theme Switch Button -->
+    <div class="theme-switch-container-container">
+        <div class="theme-switch-container">
+            <!-- From Uiverse.io by Galahhad --> 
+            <label class="theme-switch">
+            <input type="checkbox" class="theme-switch__checkbox">
+            <div class="theme-switch__container">
+                <div class="theme-switch__clouds"></div>
+                <div class="theme-switch__stars-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 55" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M135.831 3.00688C135.055 3.85027 134.111 4.29946 133 4.35447C134.111 4.40947 135.055 4.85867 135.831 5.71123C136.607 6.55462 136.996 7.56303 136.996 8.72727C136.996 7.95722 137.172 7.25134 137.525 6.59129C137.886 5.93124 138.372 5.39954 138.98 5.00535C139.598 4.60199 140.268 4.39114 141 4.35447C139.88 4.2903 138.936 3.85027 138.16 3.00688C137.384 2.16348 136.996 1.16425 136.996 0C136.996 1.16425 136.607 2.16348 135.831 3.00688ZM31 23.3545C32.1114 23.2995 33.0551 22.8503 33.8313 22.0069C34.6075 21.1635 34.9956 20.1642 34.9956 19C34.9956 20.1642 35.3837 21.1635 36.1599 22.0069C36.9361 22.8503 37.8798 23.2903 39 23.3545C38.2679 23.3911 37.5976 23.602 36.9802 24.0053C36.3716 24.3995 35.8864 24.9312 35.5248 25.5913C35.172 26.2513 34.9956 26.9572 34.9956 27.7273C34.9956 26.563 34.6075 25.5546 33.8313 24.7112C33.0551 23.8587 32.1114 23.4095 31 23.3545ZM0 36.3545C1.11136 36.2995 2.05513 35.8503 2.83131 35.0069C3.6075 34.1635 3.99559 33.1642 3.99559 32C3.99559 33.1642 4.38368 34.1635 5.15987 35.0069C5.93605 35.8503 6.87982 36.2903 8 36.3545C7.26792 36.3911 6.59757 36.602 5.98015 37.0053C5.37155 37.3995 4.88644 37.9312 4.52481 38.5913C4.172 39.2513 3.99559 39.9572 3.99559 40.7273C3.99559 39.563 3.6075 38.5546 2.83131 37.7112C2.05513 36.8587 1.11136 36.4095 0 36.3545ZM56.8313 24.0069C56.0551 24.8503 55.1114 25.2995 54 25.3545C55.1114 25.4095 56.0551 25.8587 56.8313 26.7112C57.6075 27.5546 57.9956 28.563 57.9956 29.7273C57.9956 28.9572 58.172 28.2513 58.5248 27.5913C58.8864 26.9312 59.3716 26.3995 59.9802 26.0053C60.5976 25.602 61.2679 25.3911 62 25.3545C60.8798 25.2903 59.9361 24.8503 59.1599 24.0069C58.3837 23.1635 57.9956 22.1642 57.9956 21C57.9956 22.1642 57.6075 23.1635 56.8313 24.0069ZM81 25.3545C82.1114 25.2995 83.0551 24.8503 83.8313 24.0069C84.6075 23.1635 84.9956 22.1642 84.9956 21C84.9956 22.1642 85.3837 23.1635 86.1599 24.0069C86.9361 24.8503 87.8798 25.2903 89 25.3545C88.2679 25.3911 87.5976 25.602 86.9802 26.0053C86.3716 26.3995 85.8864 26.9312 85.5248 27.5913C85.172 28.2513 84.9956 28.9572 84.9956 29.7273C84.9956 28.563 84.6075 27.5546 83.8313 26.7112C83.0551 25.8587 82.1114 25.4095 81 25.3545ZM136 36.3545C137.111 36.2995 138.055 35.8503 138.831 35.0069C139.607 34.1635 139.996 33.1642 139.996 32C139.996 33.1642 140.384 34.1635 141.16 35.0069C141.936 35.8503 142.88 36.2903 144 36.3545C143.268 36.3911 142.598 36.602 141.98 37.0053C141.372 37.3995 140.886 37.9312 140.525 38.5913C140.172 39.2513 139.996 39.9572 139.996 40.7273C139.996 39.563 139.607 38.5546 138.831 37.7112C138.055 36.8587 137.111 36.4095 136 36.3545ZM101.831 49.0069C101.055 49.8503 100.111 50.2995 99 50.3545C100.111 50.4095 101.055 50.8587 101.831 51.7112C102.607 52.5546 102.996 53.563 102.996 54.7273C102.996 53.9572 103.172 53.2513 103.525 52.5913C103.886 51.9312 104.372 51.3995 104.98 51.0053C105.598 50.602 106.268 50.3911 107 50.3545C105.88 50.2903 104.936 49.8503 104.16 49.0069C103.384 48.1635 102.996 47.1642 102.996 46C102.996 47.1642 102.607 48.1635 101.831 49.0069Z" fill="currentColor"></path>
+                </svg>
+                </div>
+                <div class="theme-switch__circle-container">
+                <div class="theme-switch__sun-moon-container">
+                    <div class="theme-switch__moon">
+                    <div class="theme-switch__spot"></div>
+                    <div class="theme-switch__spot"></div>
+                    <div class="theme-switch__spot"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </label>
+        </div>
+    </div>
+
+
+    
+    <!-- Mobile Warning Banner -->
+    <div id="mobile-warning" class="banner warning-banner hidden">
+        <div class="banner-content">
+            <svg class="banner-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+            <div class="banner-text">This website was designed for desktop and laptop devices. For the best experience, please view on a larger screen :)</div>
+        </div>
+        <button class="banner-close" onclick="dismissBanner('mobile-warning')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+    </div>
+
+    <!-- Hover Info Banner -->
+    <div id="hover-info" class="banner info-banner hidden">
+        <div class="banner-content">
+            <svg class="banner-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <div class="banner-text"><span class="laptop-text">Hover over</span><span class="mobile-text">Click on</span> the charts and elements to discover additional information and interactive features :D</div>
+        </div>
+        <button class="banner-close" onclick="dismissBanner('hover-info')">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+    </div>
+
+
+
+    <div id="introductory-info">
+        This data covers <span id="total-faps">[REDACTED]</span> faps, spanning <span id="total-time-diff">[REDACTED]</span>, with an average of <span id="avg-per-day">[REDACTED]</span> per day<br>
+        Out of these <span id="n-days">[REDACTED]</span> days, I have fapped on <span id="active-days">[REDACTED]</span> (<span id="active-days-percentage">[REDACTED]</span>) of the days<br>
+
+        <br>
+
+        My longest fap streak lasted <span id="longest-fap-streak">[REDACTED]</span> days, from <span id="longest-fap-streak-start">[REDACTED]</span> to <span id="longest-fap-streak-end">[REDACTED]</span><br>
+        My longest NoFap streak was <span id="longest-nofap-streak">[REDACTED]</span> days, from <span id="longest-nofap-streak-start">[REDACTED]</span> to <span id="longest-nofap-streak-end">[REDACTED]</span>
+
+        <br>
+
+        The most faps I've had in a single day is <span id="most-faps-in-a-day">[REDACTED]</span>, which occurred on <span id="most-faps-in-a-day-date">[REDACTED]</span><br>
+
+        <br>
+
+        The shortest time between two faps was <span id="least-time-diff">[REDACTED]</span>, on <span id="least-time-diff-timing-1">[REDACTED]</span> and <span id="least-time-diff-timing-2">[REDACTED]</span><br>
+        The longest time between two faps was <span id="most-time-diff">[REDACTED]</span>, between <span id="most-time-diff-timing-1">[REDACTED]</span> and <span id="most-time-diff-timing-2">[REDACTED]</span><br>
+    </div>
+
+    <center>
+        <div class="dark-charts">
+            <object data="./charts/total_per_month_dark.svg" type="image/svg+xml" class="chart1"></object>
+            <br><br>
+            <object data="./charts/average_per_month_dark.svg" type="image/svg+xml" class="chart1"></object>
+            <br><br>
+            <object data="./charts/modes_per_month_dark.svg" type="image/svg+xml" class="chart1"></object>
+        </div>
+        <div class="light-charts">
+            <object data="./charts/total_per_month_light.svg" type="image/svg+xml" class="chart1"></object>
+            <br><br>
+            <object data="./charts/average_per_month_light.svg" type="image/svg+xml" class="chart1"></object>
+            <br><br>
+            <object data="./charts/modes_per_month_light.svg" type="image/svg+xml" class="chart1"></object>
+        </div>
+    </center>
+
+    <br><br>
+
+    <div class="dark-charts">
+        <div class="flexbox">
+            <div class="flexitem"><object data="./charts/modes_pie_chart_dark.svg" type="image/svg+xml" class="chart2"></object></div>
+            <div class="flexitem"><object data="./charts/timings_pie_chart_dark.svg" type="image/svg+xml" class="chart2"></object></div>
+        </div>
+    </div>
+
+    <div class="light-charts">
+        <div class="flexbox">
+            <div class="flexitem"><object data="./charts/modes_pie_chart_light.svg" type="image/svg+xml" class="chart2"></object></div>
+            <div class="flexitem"><object data="./charts/timings_pie_chart_light.svg" type="image/svg+xml" class="chart2"></object></div>
+        </div>
+    </div>
+
+
+    <br><br>
+
+    
+    <div class="controls">
+        <label for="colorScheme">Color Scheme:</label>
+        <select id="colorScheme">
+            <option value="YlOrRd" selected>Yellow-Orange-Red</option>
+            <option value="YlGnBu">Yellow-Green-Blue</option>
+            <option value="PuBu">Purple-Blue</option>
+            <option value="BuPu">Blue-Purple</option>
+            <option value="OrRd">Orange-Red</option>
+            <option value="RdPu">Red-Purple</option>
+            <option value="BuGn">Blue-Green</option>
+            <option value="GnBu">Green-Blue</option>
+            <option value="PuBuGn">Purple-Blue-Green</option>
+            <option value="PuRd">Purple-Red</option>
+            <option value="YlGn">Yellow-Green</option>
+            <option value="YlOrBr">Yellow-Orange-Brown</option>
+        </select>
+    </div>
+
+    <div id="ex-wind"></div>
+    <div id="cal-plots"></div>
+
+    <!-- <center>
+        <img src="./data/calendar_heatmap.png" alt="Calendar Heatmap" style="max-width: 100%; height: auto;">
+    </center> -->
+
+    <br><br><br>
+
+    <details>
+        <summary>Raw Data</summary><br>
+        <pre id="raw_data">ERROR</pre>
+    </details>
+
+    <br><br><br>
+
+    <script>
+        // Theme initialization script - runs before other scripts
+        (function() {
+            // Check for saved theme preference or default to dark
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = savedTheme === 'dark' || (savedTheme === null && prefersDark);
+            
+            // Apply theme immediately to prevent flash
+            if (isDark) {
+                document.documentElement.classList.add('dark-theme');
+            } else {
+                document.documentElement.classList.add('light-theme');
+            }
+            
+            // Set checkbox state when DOM is ready
+            document.addEventListener('DOMContentLoaded', function() {
+                const checkbox = document.querySelector('.theme-switch__checkbox');
+                if (checkbox) {
+                    checkbox.checked = isDark;
+                }
+            });
+        })();
+    </script>
+
+</body>
+
+</html>
