@@ -6,8 +6,11 @@ from dateutil.relativedelta import relativedelta
 from typing import Union, List
 from collections import defaultdict
 from operator import lt, gt
+import json
 
 
+with open('docs/data/modes.json') as f:
+    MODES = json.load(f)
 
 MONTHS = {
     'January': 1,
@@ -257,12 +260,7 @@ class Extractor:
                 for date in raw_data[yr][month]:
                     # key       = f'{date}/{MONTHS[month]}/{yr[-2:]}'
                     key       = f'{date}/{MONTHS[month]}/{yr%100}'
-                    data[key] = {
-                        'Imagination': 0,
-                        'Porn': 0,
-                        'Hentai': 0,
-                        'Manga': 0
-                    }
+                    data[key] = { mode:0 for mode in MODES }
                     for time in raw_data[yr][month][date]:
                         mode = raw_data[yr][month][date][time]
                         data[key][mode] += 1
@@ -356,12 +354,7 @@ class Extractor:
         for yr in raw_data:
             for month in raw_data[yr]:
                 key       = f"{month}-{yr%100}"
-                data[key] = {
-                    'Imagination': 0,
-                    'Porn': 0,
-                    'Hentai': 0,
-                    'Manga': 0
-                }
+                data[key] = { mode:0 for mode in MODES }
                 for date in raw_data[yr][month]:
                     for time in raw_data[yr][month][date]:
                         mode = raw_data[yr][month][date][time]
@@ -380,12 +373,7 @@ class Extractor:
             'Manga': 1
         }
         '''
-        data = {
-            'Imagination': 0,
-            'Porn': 0,
-            'Hentai': 0,
-            'Manga': 0
-        }
+        data = { mode:0 for mode in MODES }
         raw_data = self.data
         
         for yr in raw_data:
@@ -418,13 +406,7 @@ class Extractor:
             for month in raw_data[yr]:
                 key        = f"{month}-{yr%100}"
                 no_of_days = monthrange(int(yr), MONTHS[month])[1]
-                data[key]  = {
-                    'Total': 0,
-                    'Imagination': 0,
-                    'Porn': 0,
-                    'Hentai': 0,
-                    'Manga': 0
-                }
+                data[key] = { mode:0 for mode in MODES } | {'Total':0}
                 for date in raw_data[yr][month]:
                     for time in raw_data[yr][month][date]:
                         mode = raw_data[yr][month][date][time]

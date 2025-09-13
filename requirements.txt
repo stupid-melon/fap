@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 pygal
 calplot
 altair
 vl-convert-python
-=======
-pygal
->>>>>>> 3e1edf18b40924974f1fb26abc2ed2aee039c807

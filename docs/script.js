@@ -1,4 +1,4 @@
-fetch('data.txt')
+fetch('data/data.txt')
 .then(response => response.text())
 .then(data => {
     let pre = document.getElementById('raw_data');
@@ -51,7 +51,7 @@ function formatModes(modes) {
 
 
 
-fetch('stats.json')
+fetch('data/stats.json')
 .then(response => response.json())
 .then(data => {
     document.getElementById('total-faps').textContent             = data.totalFaps;    

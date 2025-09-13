@@ -27,10 +27,12 @@ function fixCalPlotsWidth(year) {
 
 
 
-// Fetch and process data from data.json
-fetch('data.json')
-.then(response => response.json())
-.then(data => {
+// Fetch modes from modes.json, then process data.json
+Promise.all([
+    fetch('data/modes.json').then(r => r.json()),
+    fetch('data/data.json').then(r => r.json())
+])
+.then(([modes, data]) => {
     // year -> lists of objects {date, total, imagination, porn, hentai}
     const transformedData = {};
     const dateLookup = {}; // lookup object for faster access
@@ -48,15 +50,12 @@ fetch('data.json')
                 const total = Object.keys(entries).length;
                 
                 if (total > 0) {
-                    let imagination = 0, porn = 0, hentai = 0, manga = 0;
-                    
-                    // Count each type of entry
+                    // Count each mode from modes.json
+                    const modeCounts = {};
+                    modes.forEach(mode => modeCounts[mode] = 0);
                     for (const time in entries) {
                         const type = entries[time];
-                        if      (type === 'Imagination') imagination++;
-                        else if (type === 'Porn')        porn++;
-                        else if (type === 'Hentai')      hentai++;
-                        else if (type === 'Manga')       manga++;
+                        modeCounts[type]++;
                     }
 
                     // Create a date string in YYYY-MM-DD format
@@ -66,12 +65,8 @@ fetch('data.json')
                     const entry = {
                         date: dateStr,
                         total: total,
-                        imagination: imagination,
-                        porn: porn,
-                        hentai: hentai,
-                        manga: manga
+                        ...modeCounts
                     };
-                    
                     transformedData[year].push(entry);
                     dateLookup[dateStr] = entry; // Store in lookup object
                 }
@@ -148,17 +143,20 @@ fetch('data.json')
                             const entry = dateLookup[key];
                             
                             let text = `${value} fap${value>1 ? 's' : ''} on ${dateStr} (`;
-                            let modes = [];
+                            let modesText = [];
+                            // If only one fap, find which mode it was
                             if (entry.total === 1) {
-                                modes = [entry.imagination ? `Imagination` : entry.porn ? 'Porn': entry.hentai ? 'Hentai' : 'Manga'];
+                                for (const mode of modes) {
+                                    if (entry[mode] === 1) { modesText = [mode]; break;}
+                                }
                             }
+                            // Otherwise, list all modes with counts
                             else {
-                                if (entry.imagination) modes.push(`Imagination: ${entry.imagination}`);
-                                if (entry.porn)        modes.push(`Porn: ${entry.porn}`);
-                                if (entry.manga)       modes.push(`Manga: ${entry.manga}`);
-                                if (entry.hentai)      modes.push(`Hentai: ${entry.hentai}`);
+                                for (const mode of modes) {
+                                    if (entry[mode]) { modesText.push(`${mode}: ${entry[mode]}`); }
+                                }
                             }
-                            text += modes.join(', ') + ')';
+                            text += modesText.join(', ') + ')';
 
                             // console.log(`Tooltip for ${dateStr}: ${text}`);
                             return text;

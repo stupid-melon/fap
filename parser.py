@@ -19,11 +19,17 @@ MONTHS = {
 
 MODES = {
     None: 'Imagination',
+    'A':  'Imagination',
     'N':  'Imagination',
+    'K':  'Imagination',
     'P':  'Porn',
     'H':  'Hentai',
     'M':  'Manga',
+    'W':  'Manhwa'
 }
+
+with open('docs/data/modes.json', 'w') as f:
+    json.dump(list(set(MODES.values())), f, indent=4)
 
 
 
@@ -45,7 +51,7 @@ def get_val(string: str):
 
 
 
-with open('docs/data.txt') as f:
+with open('docs/data/data.txt') as f:
     data_txt = f.read()
 
 
@@ -100,7 +106,7 @@ last_mon = list(data[last_yr].keys())[-1]
 del data[last_yr][last_mon]
 
 # Dumps the data
-with open('docs/data.json', 'w') as f:
+with open('docs/data/data.json', 'w') as f:
     json.dump(data, f, indent=2)
 
 
