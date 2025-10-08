@@ -109,10 +109,10 @@ class Extractor:
 
 
 
-    def longest_fap_nofap_streak(self, type_='fap') -> Union[List[tuple], int]:
+    def longest_fap_nofap_streak(self, type_='fap') -> dict:
         '''
         Returns the longest streak of consecutive days with faps and the length of that streak
-        [('01-01-2021', '05-01-2021'), ('10-01-2021', '15-01-2021')] , 5
+        { 'pairs': [ {'start': '01-01-2021', 'end': '05-01-2021'} ], 'maxStreak': 5 }
         '''
         date_range = self.date_range
 
