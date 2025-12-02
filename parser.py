@@ -29,7 +29,10 @@ MODES = {
 }
 
 with open('docs/data/modes.json', 'w') as f:
-    json.dump(list(set(MODES.values())), f, indent=4)
+    lis = []
+    for i in MODES.values():
+        if i not in lis: lis.append(i)
+    json.dump(lis, f, indent=4)
 
 
 
@@ -91,9 +94,11 @@ for line in lines:
     
     for i in times:
         # i is like "2200 H"
-        key4, val = get_val(i)
+        key4, val = get_val(i)                  # "2200 H" -> "2200", "H"
         val       = MODES[val]                  # "H" -> "Hentai"
         data[key1][key2][key3][key4] = val
+        if (int(key4) % 100) % 15 != 0:
+            raise ValueError(f'Time {key4} is not multiple of 15 minutes\nFull line:\n{line}')
 
 
 

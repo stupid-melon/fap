@@ -6,18 +6,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 
-from rich import print_json, inspect
 from rich.console import Console
 from extractor import Extractor
 
-from   calendar import monthrange
-from   datetime import datetime, timedelta
-from   dateutil.relativedelta import relativedelta
-from   math     import ceil
-import json, os
-from   typing import Union, List
-from   collections import defaultdict
-from   operator import lt, gt
+
+from math import ceil
+from copy import deepcopy
+import json
 
 with open('docs/data/modes.json') as f: MODES = json.load(f)
 
@@ -154,6 +149,23 @@ def statistics(extractor:Extractor):
     with open('docs/data/stats.json', 'w') as f: json.dump(stats, f, indent=4)
 
 
+def human_readable_minutes(minutes:int) -> str:
+    '''
+    Converts minutes into a human readable string.
+    E.g. 1500 -> "1 day, 1 hour"
+    '''
+    days   = minutes // 1440
+    hours  = (minutes % 1440) // 60
+    minutes = minutes % 60
+
+    parts = []
+    if days   > 0: parts.append(f'{days} day{"s" if days!=1 else ""}')
+    if hours  > 0: parts.append(f'{hours} hour{"s" if hours!=1 else ""}')
+    if minutes> 0: parts.append(f'{minutes} minute{"s" if minutes!=1 else ""}')
+
+    return ', '.join(parts)
+
+
 
 
 @dual_theme_pygal('docs/charts/total_per_month')
@@ -272,6 +284,28 @@ def timings_pie_chart(extractor:Extractor, style=None, filename=None):
     # Feeding data into chart
     for key in data.keys():
         chart.add(key, data[key], formatter=lambda x: f'{x} ({ max( round(x/total*100) , 1 )}%)')
+
+    # Exporting chart
+    chart.render_to_file(filename)
+
+
+
+@dual_theme_pygal('docs/charts/diffs_bin_chart')
+def diffs_bin_chart(extractor:Extractor, style=None, filename=None):
+    '''
+    Creates a horizontal bar chart for the distribution of time differences between faps
+    '''
+    # Copy style and have only one color
+    my_style = deepcopy(style)
+    my_style.colors = [my_style.colors[0]]
+    
+    # Initialising
+    chart = pygal.Bar(style=my_style, show_legend=False)
+    chart.title = 'Distribution of time differences between faps'
+
+    # Extracting needed data
+    data = extractor.distribution_of_diffs_per_hour()
+    for k,v in data.items(): chart.add(k, v)
 
     # Exporting chart
     chart.render_to_file(filename)
@@ -416,15 +450,19 @@ if __name__ == '__main__':
             raw_data = json.load(f)
 
         extractor = Extractor(raw_data)
+
         statistics(extractor)
         total_per_month(extractor)
         avg_per_month(extractor)
         modes_per_month(extractor)
         modes_pie_chart(extractor)
         timings_pie_chart(extractor)
+        diffs_bin_chart(extractor)
         # # timings_bar_chart(extractor)
         # # calendar_heatmap(extractor)
         # # calendar_heatmap_altair(extractor)
+
+        # print(NeonStyle.colors)
     
     except Exception as e:
         console.print_exception()

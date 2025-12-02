@@ -238,7 +238,78 @@ class Extractor:
             'minutes': best_diff.seconds // 60 % 60
         }
         return {'pairs': pairs, 'bestDiff': best_diff}
+    
+
+
+    def distribution_of_diffs_per_hour(self):
+        '''
+        Returns the distribution of time differences (in minutes) between consecutive faps
+        {
+            '< 1 hour': 15,
+            '1-2 hours': 10,
+            '2-3 hours': 5
+        }
+        '''
+        # Remember, I note down times in 15mins intervals
+        diffs = defaultdict(int)
+        times = [
+            datetime.strptime(f'{yr}-{MONTHS[month]}-{date} {time}', '%Y-%m-%d %H%M')
+            for yr    in self.data
+            for month in self.data[yr]
+            for date  in self.data[yr][month]
+            for time  in self.data[yr][month][date]
+        ]
+
+        last_time = None
+        for curr_time in sorted(times):
+            if last_time is not None:
+                diff = (curr_time - last_time).total_seconds() // 60
+                diff = int(diff)
+                if diff % 15 != 0: raise ValueError(f"Time difference of {diff} minutes between {last_time} and {curr_time} is not a multiple of 15.")
+                diffs[diff] += 1
+            last_time = curr_time
         
+        diffs_dist = dict(sorted(diffs.items()))
+        data = defaultdict(int)
+        for diff, amount in diffs_dist.items():
+            if diff < 60: key = '< 1 hour'
+            else:         key = f'{diff//60}-{(diff//60)+1} hours'
+            data[key] += amount
+        return data
+
+
+    # def distribution_of_diffs(self):
+    #     '''
+    #     Returns the distribution of time differences (in minutes) between consecutive faps
+    #     {
+    #         15: 5,
+    #         30: 2,
+    #         45: 1,
+    #     }
+    #     '''
+    #     # Remember, I note down times in 15mins intervals
+    #     diffs = defaultdict(int)
+    #     times = [
+    #         datetime.strptime(f'{yr}-{MONTHS[month]}-{date} {time}', '%Y-%m-%d %H%M')
+    #         for yr    in self.data
+    #         for month in self.data[yr]
+    #         for date  in self.data[yr][month]
+    #         for time  in self.data[yr][month][date]
+    #     ]
+
+    #     last_time = None
+    #     for curr_time in sorted(times):
+    #         if last_time is not None:
+    #             diff = (curr_time - last_time).total_seconds() // 60
+    #             if diff % 15 != 0: raise ValueError(f"Time difference of {diff} minutes between {last_time} and {curr_time} is not a multiple of 15.")
+    #             diffs[diff] += 1
+    #         last_time = curr_time
+        
+    #     data = dict(sorted(diffs.items()))
+    #     data = { int(k): v for k,v in data.items() }
+    #     print(data)
+    #     return data
+
 
 
     def modes_per_day(self):
