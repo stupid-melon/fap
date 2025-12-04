@@ -312,24 +312,6 @@ def timings_pie_chart(extractor:Extractor, style=None, filename=None):
 
 
 
-@dual_theme_pygal('docs/charts/diffs_bin_chart')
-def diffs_bin_chart(extractor:Extractor, style=None, filename=None):
-    '''
-    Creates a horizontal bar chart for the distribution of time differences between faps
-    '''    
-    # Initialising
-    chart = pygal.Bar(style=style, show_legend=False)
-    chart.title = 'Distribution of time differences between faps'
-
-    # Extracting needed data
-    data = extractor.distribution_of_diffs_per_hour()
-    for k,v in data.items(): chart.add(k, v)
-
-    # Exporting chart
-    chart.render_to_file(filename)
-
-
-
 @dual_theme_pygal('docs/charts/faps_amount_bin_chart')
 def faps_amount_bin_chart(extractor:Extractor, style=None, filename=None):
     '''
@@ -343,6 +325,28 @@ def faps_amount_bin_chart(extractor:Extractor, style=None, filename=None):
     data = extractor.distribution_of_faps_per_day()
     total = sum(data.values())
     for k,v in data.items(): chart.add(k, v, formatter=lambda x: formatter(x, total))
+
+    # Exporting chart
+    chart.render_to_file(filename)
+
+
+
+@dual_theme_pygal('docs/charts/diffs_bin_chart')
+def diffs_bin_chart(extractor:Extractor, style=None, filename=None):
+    '''
+    Creates a horizontal bar chart for the distribution of time differences between faps
+    '''
+    # Copy style and have only one color
+    my_style = deepcopy(style)
+    my_style.colors = [my_style.colors[0]]
+    
+    # Initialising
+    chart = pygal.Bar(style=my_style, show_legend=False)
+    chart.title = 'Distribution of time differences between faps'
+
+    # Extracting needed data
+    data = extractor.distribution_of_diffs_per_hour()
+    for k,v in data.items(): chart.add(k, v)
 
     # Exporting chart
     chart.render_to_file(filename)
@@ -495,8 +499,8 @@ if __name__ == '__main__':
         modes_per_month(extractor)
         modes_pie_chart(extractor)
         timings_pie_chart(extractor)
-        diffs_bin_chart(extractor)
         faps_amount_bin_chart(extractor)
+        diffs_bin_chart(extractor)
         # # timings_bar_chart(extractor)
         # # calendar_heatmap(extractor)
         # # calendar_heatmap_altair(extractor)
