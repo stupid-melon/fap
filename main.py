@@ -316,13 +316,9 @@ def timings_pie_chart(extractor:Extractor, style=None, filename=None):
 def diffs_bin_chart(extractor:Extractor, style=None, filename=None):
     '''
     Creates a horizontal bar chart for the distribution of time differences between faps
-    '''
-    # Copy style and have only one color
-    my_style = deepcopy(style)
-    my_style.colors = [my_style.colors[0]]
-    
+    '''    
     # Initialising
-    chart = pygal.Bar(style=my_style, show_legend=False)
+    chart = pygal.Bar(style=style, show_legend=False)
     chart.title = 'Distribution of time differences between faps'
 
     # Extracting needed data
