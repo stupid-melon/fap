@@ -9,10 +9,10 @@ from matplotlib import rcParams
 from rich.console import Console
 from extractor import Extractor
 
-
 from math import ceil
 from copy import deepcopy
 import json
+
 
 with open('docs/data/modes.json') as f: MODES = json.load(f)
 
@@ -127,6 +127,11 @@ def dual_theme_pygal(base_filename):
     return decorator
 
 
+def formatter(x, total):
+    val = round(x/total*100)
+    val = '<1' if val < 1 else val
+    return f'{x} ({val}%)'
+
 
 def statistics(extractor:Extractor):
     total_stuff = extractor.total_stuff()
@@ -166,6 +171,23 @@ def human_readable_minutes(minutes:int) -> str:
     return ', '.join(parts)
 
 
+def human_readable_minutes(minutes:int) -> str:
+    '''
+    Converts minutes into a human readable string.
+    E.g. 1500 -> "1 day, 1 hour"
+    '''
+    days   = minutes // 1440
+    hours  = (minutes % 1440) // 60
+    minutes = minutes % 60
+
+    parts = []
+    if days   > 0: parts.append(f'{days} day{"s" if days!=1 else ""}')
+    if hours  > 0: parts.append(f'{hours} hour{"s" if hours!=1 else ""}')
+    if minutes> 0: parts.append(f'{minutes} minute{"s" if minutes!=1 else ""}')
+
+    return ', '.join(parts)
+
+
 
 
 @dual_theme_pygal('docs/charts/total_per_month')
@@ -174,7 +196,7 @@ def total_per_month(extractor:Extractor, style=None, filename=None):
     Creates a horizontal stacked bar chart for total per month, grouped by mode.
     '''
     # Initialising
-    chart = pygal.HorizontalStackedBar(style=style)
+    chart = pygal.HorizontalStackedBar(style=style, value_formatter=lambda x: f'{x}')
     chart.title = 'Total Per Month'
 
     # Extracting needed data
@@ -261,7 +283,7 @@ def modes_pie_chart(extractor:Extractor, style=None, filename=None):
     data  = {key:data[key] for key in sorted(data.keys(), key=lambda x:data[x], reverse=True)}
     total = sum(data.values())
     for key in data.keys():
-        chart.add(key, data[key], formatter=lambda x: f'{x} ({ max( round(x/total*100) , 1 )}%)')
+        chart.add(key, data[key], formatter=lambda x: formatter(x, total))
 
     # Exporting chart
     chart.render_to_file(filename)
@@ -283,7 +305,7 @@ def timings_pie_chart(extractor:Extractor, style=None, filename=None):
     
     # Feeding data into chart
     for key in data.keys():
-        chart.add(key, data[key], formatter=lambda x: f'{x} ({ max( round(x/total*100) , 1 )}%)')
+        chart.add(key, data[key], formatter=lambda x: formatter(x, total))
 
     # Exporting chart
     chart.render_to_file(filename)
@@ -312,13 +334,32 @@ def diffs_bin_chart(extractor:Extractor, style=None, filename=None):
 
 
 
+@dual_theme_pygal('docs/charts/faps_amount_bin_chart')
+def faps_amount_bin_chart(extractor:Extractor, style=None, filename=None):
+    '''
+    Creates a horizontal bar chart for the distribution of number of faps per day
+    '''
+    # Initialising
+    chart = pygal.Bar(style=style)
+    chart.title = 'Distribution of number of faps per day'
+
+    # Extracting needed data
+    data = extractor.distribution_of_faps_per_day()
+    total = sum(data.values())
+    for k,v in data.items(): chart.add(k, v, formatter=lambda x: formatter(x, total))
+
+    # Exporting chart
+    chart.render_to_file(filename)
+
+
+
 @dual_theme_pygal('docs/charts/timings_bar_chart')
 def timings_bar_chart(extractor:Extractor, style=None, filename=None):
     '''
     Creates a horizontal bar chart for the top 10 timings (most frequent times).
     '''
     # Initialising
-    chart = pygal.HorizontalBar(style=style, value_formatter=lambda x: f'{round(x*100)}%')
+    chart = pygal.HorizontalBar(style=style, value_formatter=lambda x: formatter(x, 1))
     chart.title = 'Top 10 timings'
 
     # Extracting needed data
@@ -328,7 +369,7 @@ def timings_bar_chart(extractor:Extractor, style=None, filename=None):
     total = sum(data.values())
     data  = {key:data[key] for key in sorted(data.keys(), key=lambda x:data[x], reverse=True)[:10]}
     for key in data.keys():
-        chart.add(key, data[key], formatter=lambda x: f'{x} ({ max( round(x/total*100) , 1 )}%)')
+        chart.add(key, data[key], formatter=lambda x: formatter(x, total))
 
     # Exporting chart
     chart.render_to_file(filename)
@@ -451,6 +492,7 @@ if __name__ == '__main__':
 
         extractor = Extractor(raw_data)
 
+
         statistics(extractor)
         total_per_month(extractor)
         avg_per_month(extractor)
@@ -458,9 +500,12 @@ if __name__ == '__main__':
         modes_pie_chart(extractor)
         timings_pie_chart(extractor)
         diffs_bin_chart(extractor)
+        faps_amount_bin_chart(extractor)
         # # timings_bar_chart(extractor)
         # # calendar_heatmap(extractor)
         # # calendar_heatmap_altair(extractor)
+
+        # print(NeonStyle.colors)
 
         # print(NeonStyle.colors)
     

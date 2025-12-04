@@ -239,6 +239,7 @@ class Extractor:
         }
         return {'pairs': pairs, 'bestDiff': best_diff}
     
+    
 
 
     def distribution_of_diffs_per_hour(self):
@@ -276,39 +277,6 @@ class Extractor:
             else:         key = f'{diff//60}-{(diff//60)+1} hours'
             data[key] += amount
         return data
-
-
-    # def distribution_of_diffs(self):
-    #     '''
-    #     Returns the distribution of time differences (in minutes) between consecutive faps
-    #     {
-    #         15: 5,
-    #         30: 2,
-    #         45: 1,
-    #     }
-    #     '''
-    #     # Remember, I note down times in 15mins intervals
-    #     diffs = defaultdict(int)
-    #     times = [
-    #         datetime.strptime(f'{yr}-{MONTHS[month]}-{date} {time}', '%Y-%m-%d %H%M')
-    #         for yr    in self.data
-    #         for month in self.data[yr]
-    #         for date  in self.data[yr][month]
-    #         for time  in self.data[yr][month][date]
-    #     ]
-
-    #     last_time = None
-    #     for curr_time in sorted(times):
-    #         if last_time is not None:
-    #             diff = (curr_time - last_time).total_seconds() // 60
-    #             if diff % 15 != 0: raise ValueError(f"Time difference of {diff} minutes between {last_time} and {curr_time} is not a multiple of 15.")
-    #             diffs[diff] += 1
-    #         last_time = curr_time
-        
-    #     data = dict(sorted(diffs.items()))
-    #     data = { int(k): v for k,v in data.items() }
-    #     print(data)
-    #     return data
 
 
 
@@ -383,7 +351,6 @@ class Extractor:
     
         return data
     
-
 
 
     def times_frequncies(self):
@@ -487,4 +454,33 @@ class Extractor:
                     data[key][i] = round( data[key][i] / no_of_days , 2 )
         
         return data
+    
+
+
+    def distribution_of_faps_per_day(self):
+        '''
+        How many days had x faps
+        {
+            0: 5,
+            1: 10,
+            ...
+        }
+        '''
+        data = defaultdict(int)
+        raw_data = self.data
+
+        for yr in raw_data:
+            for month in raw_data[yr]:
+                for date in raw_data[yr][month]:
+                    faps = len(raw_data[yr][month][date])
+                    data[faps] += 1
+        
+        min_faps = min(data.keys())
+        max_faps = max(data.keys())
+
+        data = { str(i): data.get(i,0) for i in range(min_faps, max_faps+1) }
+        return data
+
+
+
         
