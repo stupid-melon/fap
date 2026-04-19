@@ -1,11 +1,11 @@
 {
-    "totalFaps": 1983,
-    "avgPerDay": 1.16,
-    "activeDays": 1360,
-    "nDays": 1705,
+    "totalFaps": 2088,
+    "avgPerDay": 1.14,
+    "activeDays": 1437,
+    "nDays": 1826,
     "timeDiff": {
-        "years": 4,
-        "months": 8,
+        "years": 5,
+        "months": 0,
         "days": 0
     },
     "mostDay": {
@@ -15,7 +15,6 @@
         "maxFaps": 6,
         "modes": {
             "22-03-2025": {
-                "Imagination": 5,
                 "Porn": 1
             }
         }
@@ -49,8 +48,8 @@
         }
     },
     "mostTime": {
-        "time": "0300",
-        "count": 36
+        "time": "1430",
+        "count": 37
     },
     "longestFapStreak": {
         "pairs": [

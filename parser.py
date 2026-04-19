@@ -22,6 +22,8 @@ MODES = {
     'A':  'Imagination',
     'N':  'Imagination',
     'K':  'Imagination',
+    'V':  'Imagination',
+    'S':  'Imagination',
     'P':  'Porn',
     'H':  'Hentai',
     'M':  'Manga',
