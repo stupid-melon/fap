@@ -1,11 +1,11 @@
 {
-    "totalFaps": 2150,
+    "totalFaps": 2212,
     "avgPerDay": 1.14,
-    "activeDays": 1485,
-    "nDays": 1887,
+    "activeDays": 1526,
+    "nDays": 1948,
     "timeDiff": {
         "years": 5,
-        "months": 2,
+        "months": 4,
         "days": 0
     },
     "mostDay": {
@@ -49,7 +49,7 @@
     },
     "mostTime": {
         "time": "0245",
-        "count": 37
+        "count": 39
     },
     "longestFapStreak": {
         "pairs": [

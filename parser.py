@@ -24,6 +24,7 @@ MODES = {
     'K':  'Imagination',
     'V':  'Imagination',
     'S':  'Imagination',
+    'S!': 'Imagination',
     'P':  'Porn',
     'H':  'Hentai',
     'M':  'Manga',
@@ -42,10 +43,11 @@ with open('docs/data/modes.json', 'w') as f:
 def get_val(string: str):
     val = None
     for i in string:
-        if i.isalpha():
-            val = i
+        if i.isalpha() or i == '!':
+            if not val: val = ''
+            val += i
     
-    key = [i for i in string if not i.isalpha()]
+    key = [i for i in string if not i.isalpha() and i != '!']
     key = ''.join(key)
     key = key.replace(' ', '')
 
