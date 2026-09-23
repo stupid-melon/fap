@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 
 from rich.console import Console
+from rich import inspect
 from extractor import Extractor
 
 from math import ceil
@@ -43,6 +44,7 @@ NeonStyle.transition        = '0.3s ease-out'
 NeonStyle.background        = 'transparent'
 NeonStyle.foreground        = 'rgba(200, 200, 200, 1)'
 NeonStyle.foreground_strong = 'rgba(255, 255, 255, 1)'
+NeonStyle.label_font_size = 8
 NeonStyle.colors = (
     '#ff5995',
     '#b6e354',
@@ -97,7 +99,7 @@ LightNeonStyle = Style(
     stroke_width_hover='4',
 
     font_family='Consolas, "Liberation Mono", Menlo, Courier, monospace',
-    label_font_size=10,
+    label_font_size=8,
     legend_font_size=14,
     major_label_font_size=10,
     no_data_font_size=64,
